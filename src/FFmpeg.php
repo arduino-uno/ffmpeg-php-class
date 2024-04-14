@@ -268,6 +268,54 @@ class FFmpeg
 		return $this;
 	}
 	/**
+	*   @return	object  $drawtext https://ffmpeg.org/ffmpeg-filters.html#drawtext-1
+	*   @param	array 	$array_options
+	*   @access	public
+	*   @example    	$FFmpeg->drawtext( $array_options );
+	*/
+	public function drawtext( array $options=[] )
+	{    
+
+		$arr_options = array_merge([
+			'font' => 'Arial',
+			'text' => 'Hello World',			
+			'x' => '(w-text_w)/2',
+			'y' => '(h-text_h)/2',
+			'alpha' => null,
+			'fontsize' => '24',
+			'fontcolor' => 'white',
+			'boxcolor' => 'black@0.5',
+			'bordercolor' => null,
+			'shadowcolor' => null,
+			'box' => '1',
+			'boxw' => null,
+			'boxh' => null,
+			'boxborderw' => '5',
+			'line_spacing' => null,
+			'text_align' => null,
+			'shadowx' => null,
+			'shadowy' => null,
+			'borderw' => null	
+		], $options);
+
+		// Loop through options array 
+		foreach($arr_options as $key => $value) {
+
+			if ($key == 'text') $value = escapeshellarg($value);
+			
+			if (!is_null( $arr_options[$key] ) ) {            
+				$str_options .= $key . "=" . $value . ":";
+			};
+
+		}
+
+		$this->options['vf']['drawtext'] = chr(34) . $str_options . chr(34);
+		$this->audioCodec();
+
+		return $this;
+
+	}
+	/**
 	*   @return	object
 	*   @access	public
 	*/
