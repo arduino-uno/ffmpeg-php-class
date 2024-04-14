@@ -310,8 +310,6 @@ class FFmpeg
 		}
 
 		$this->options['vf']['drawtext'] = chr(34) . $str_options . chr(34);
-		$this->audioCodec();
-
 		return $this;
 
 	}
